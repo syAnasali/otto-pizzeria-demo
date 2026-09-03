@@ -38,7 +38,7 @@ const Hotel = () => {
 
   return (
     <div className="min-h-screen">
-      <Header /><main className="w-full pt-20 sm:pt-28 bg-surface min-h-screen overflow-x-hidden"><div className="flex flex-col w-full">
+      <Header /><main className="w-full pt-20 sm:pt-28 bg-surface min-h-screen"><div className="flex flex-col w-full">
 {/* Dynamic Notification Bar / Ticker */}
 
 {/* Hero Section */}

@@ -59,7 +59,7 @@ const Home = () => {
 {/* END: MainHeader */}
 {/* BEGIN: HeroSection */}
 {/* Main Funky Landing Hero Canvas */}
-<main className="relative max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pt-6 pb-12 sm:pt-8 sm:pb-16 lg:pt-12 lg:pb-20 overflow-hidden lg:overflow-visible" id="hero">
+<main className="relative max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pt-6 pb-12 sm:pt-8 sm:pb-16 lg:pt-12 lg:pb-20" id="hero">
 {/* Background Pop Art Graphic Circles */}
 <div className="absolute top-12 left-1/4 w-80 h-80 bg-sun-gold/20 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 <div className="absolute bottom-10 right-10 w-96 h-96 bg-burnt-orange/15 rounded-full blur-3xl -z-10 pointer-events-none"></div>
