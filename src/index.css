@@ -7,10 +7,28 @@
 @tailwind utilities;
 
 @layer base {
-  html,body{margin:0;padding:0;}
-  body{overscroll-behavior:none;}
-  main>:first-child{margin-top:0!important;}
-  main>:last-child{margin-bottom:0!important;}
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+  body {
+    overscroll-behavior-y: none;
+  }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
 }
 
 ::-webkit-scrollbar{display:none;}
@@ -40,4 +58,174 @@
 }
 .animate-spin-slow {
   animation: spinSlow 20s linear infinite;
+}
+
+@keyframes waveFlow {
+  0% {
+    background-position-x: 0px;
+  }
+  100% {
+    background-position-x: 20px;
+  }
+}
+
+.nav-wavy-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 3px;
+  transition: color 0.2s ease;
+}
+
+.nav-wavy-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' fill='none'%3E%3Cpath d='M0 3 Q 2.5 0, 5 3 T 10 3 T 15 3 T 20 3' stroke='%23D9531E' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 20px 6px;
+  background-position-x: 0px;
+  transform-origin: center;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-wavy-link.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+  animation: waveFlow 1s linear infinite;
+}
+
+.nav-wavy-link:not(.active)::after {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-wavy-link:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+  animation: waveFlow 1s linear infinite;
+}
+
+/* ===================================================
+   Lenis Smooth Scrolling Overrides
+   =================================================== */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ===================================================
+   Premium Scroll-Driven Reveal Animations
+   =================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-35px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(35px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.93) translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0px);
+}
+
+.reveal-pop {
+  opacity: 0;
+  transform: scale(0.88) translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-pop.revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0px);
+}
+
+/* Stagger Delays */
+.delay-100 {
+  transition-delay: 100ms;
+}
+.delay-150 {
+  transition-delay: 150ms;
+}
+.delay-200 {
+  transition-delay: 200ms;
+}
+.delay-250 {
+  transition-delay: 250ms;
+}
+.delay-300 {
+  transition-delay: 300ms;
+}
+.delay-400 {
+  transition-delay: 400ms;
+}
+.delay-500 {
+  transition-delay: 500ms;
+}
+
+/* Mobile-Safe Reveal Overrides (Prevents Horizontal Page Shift) */
+@media (max-width: 640px) {
+  .reveal-left,
+  .reveal-right {
+    transform: translateY(18px) !important;
+  }
+  .reveal-left.revealed,
+  .reveal-right.revealed {
+    transform: translateY(0px) !important;
+  }
 }
