@@ -83,7 +83,7 @@ export default {
         "headline-md":["\"Source Serif 4\""],
         "body-lg":["Hanken Grotesk"],
         "display-xl":["Bricolage Grotesque"],
-        "label-hotel":["\"Source Serif 4\""],
+        "label-serif":["\"Source Serif 4\""],
         "display-xl-mobile":["Bricolage Grotesque"]
       },
       fontSize: {
@@ -95,7 +95,7 @@ export default {
         "headline-md":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"600"}],
         "body-lg":["18px",{"lineHeight":"26px","fontWeight":"500"}],
         "display-xl":["72px",{"lineHeight":"76px","letterSpacing":"-0.04em","fontWeight":"800"}],
-        "label-hotel":["14px",{"lineHeight":"18px","letterSpacing":"0.02em","fontWeight":"600"}],
+        "label-serif":["14px",{"lineHeight":"18px","letterSpacing":"0.02em","fontWeight":"600"}],
         "display-xl-mobile":["40px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"800"}]
       },
       borderRadius: {

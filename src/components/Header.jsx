@@ -3,17 +3,11 @@ import { useLocation, Link } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState('Home');
+  const [activeTab, setActiveTab] = useState('Hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // If on the hotel page, active tab is always Hotel GVR
-      if (location.pathname === '/hotel') {
-        setActiveTab('Hotel GVR');
-        return;
-      }
-
       // If scrolled near the bottom of the page, activate Contact
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 120) {
         setActiveTab('Contact');
@@ -23,8 +17,8 @@ const Header = () => {
       // Section IDs in exact vertical layout order on Home page
       const sections = [
         { id: 'hero', name: 'Hero' },
-        { id: 'anatomy', name: 'Craft Anatomy' },
-        { id: 'menu', name: 'Menu' },
+        { id: 'anatomy', name: 'Crust Craft' },
+        { id: 'menu', name: 'Pizza Menu' },
         { id: 'reviews', name: 'Reviews' },
         { id: 'contact', name: 'Contact' }
       ];
@@ -50,8 +44,8 @@ const Header = () => {
   }, [location.pathname]);
 
   const sectionLinks = [
-    { name: 'Craft Anatomy', href: '/#anatomy' },
-    { name: 'Menu', href: '/#menu' },
+    { name: 'Crust Craft', href: '/#anatomy' },
+    { name: 'Pizza Menu', href: '/#menu' },
     { name: 'Reviews', href: '/#reviews' },
     { name: 'Contact', href: '/#contact' },
   ];
@@ -101,36 +95,34 @@ const Header = () => {
     }
   };
 
-  const isHotelPage = location.pathname === '/hotel';
-
   return (
     <header className="sticky top-2 sm:top-4 z-50 px-2.5 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       <nav aria-label="Main Navigation" className="bg-white/95 backdrop-blur-md retro-border rounded-2xl sm:rounded-3xl px-3 sm:px-6 py-2 sm:py-3 shadow-pop transition-all">
         <div className="flex items-center justify-between gap-2 sm:gap-6">
           {/* Brand Logo - Redirects to Hero */}
           <Link 
-            aria-label="Burger Signature Home & Hero" 
+            aria-label="Otto Pizzeria Home & Hero" 
             className="flex items-center gap-2 sm:gap-3 group shrink-0 cursor-pointer" 
             to="/#hero" 
             onClick={handleLogoClick}
           >
-            <div className="w-9 h-9 sm:w-11 sm:h-11 bg-cheddar-yellow rounded-xl sm:rounded-2xl retro-border flex items-center justify-center text-xl sm:text-2xl transform group-hover:rotate-12 transition-transform shadow-pop-sm">
-              🍔
+            <div className="h-9 sm:h-11 px-2.5 py-1 bg-cream-soft rounded-xl sm:rounded-2xl retro-border flex items-center justify-center transform group-hover:scale-105 transition-all shadow-pop-sm">
+              <img src="/otto-logo.svg" alt="Otto Pizzeria Logo" className="h-5 sm:h-7 w-auto object-contain" />
             </div>
             <div className="flex flex-col">
-              <span className="font-funky text-xl sm:text-3xl text-retro-brown tracking-wide leading-none group-hover:text-burnt-orange transition-colors">
-                Burger<span className="text-burnt-orange">.</span>
+              <span className="font-funky text-xl sm:text-2xl text-retro-brown tracking-wide leading-none group-hover:text-burnt-orange transition-colors flex items-center gap-1.5">
+                Otto<span className="font-chunky text-[11px] sm:text-xs text-burnt-orange uppercase tracking-wider">Pizzeria</span>
               </span>
-              <span className="text-[9px] sm:text-[11px] font-extrabold text-cheddar-yellow uppercase tracking-widest leading-none mt-0.5">
-                बर्गर सिगनेचर • Jaipur
+              <span className="text-[8px] sm:text-[10px] font-extrabold text-burnt-orange uppercase tracking-widest leading-none mt-0.5">
+                Wood-Fired • Dubai
               </span>
             </div>
           </Link>
           
-          {/* Desktop Nav Links (Centered Section Anchor Links with Generous Spacing) */}
+          {/* Desktop Nav Links */}
           <ul className="hidden md:flex items-center gap-5 lg:gap-7 font-bold text-sm tracking-wide">
             {sectionLinks.map((item) => {
-              const isActive = !isHotelPage && activeTab === item.name;
+              const isActive = activeTab === item.name;
               return (
                 <li key={item.name} className="flex items-center">
                   <a 
@@ -149,70 +141,82 @@ const Header = () => {
             })}
           </ul>
 
-          {/* Right Controls: Hotel GVR Button + Call 24/7 & Mobile Toggle */}
+          {/* Right Controls: WhatsApp Quick Button + Call 24/7 & Mobile Toggle */}
           <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
-            {/* Hotel GVR Distinct Page Link (Right-Shifted) */}
-            <Link
-              to="/hotel"
-              onClick={() => {
-                setActiveTab('Hotel GVR');
-                setIsMobileMenuOpen(false);
-              }}
-              className={`hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl border-2 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${
-                isHotelPage
-                  ? 'bg-brioche-deep text-parchment-subtle border-retro-brown shadow-pop-sm'
-                  : 'bg-cream-soft text-retro-brown border-retro-brown/40 hover:border-retro-brown hover:bg-cheddar-yellow/30 shadow-pop-sm'
-              }`}
+            <a
+              href="https://wa.me/971503788009?text=Hello%20Otto%20Pizzeria!%20I%20would%20like%20to%20place%20an%20order."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-cream-soft text-retro-brown border-2 border-retro-brown/40 hover:border-retro-brown hover:bg-cheddar-yellow/30 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-pop-sm"
             >
-              <span className="text-base">🏨</span>
-              <span className="font-chunky text-xs uppercase tracking-wider">Hotel GVR</span>
-              <span
-                className={`text-[9px] font-chunky px-1.5 py-0.5 rounded-lg border transition-colors ${
-                  isHotelPage
-                    ? 'bg-cheddar-amber text-brioche-deep border-cheddar-amber'
-                    : 'bg-sun-gold text-retro-brown border-retro-brown'
-                }`}
-              >
-                AC STAY
-              </span>
-            </Link>
+              <span className="text-base">💬</span>
+              <span className="font-chunky text-xs uppercase tracking-wider">WhatsApp</span>
+            </a>
 
             {/* Direct Call Button */}
             <a 
               className="inline-flex items-center gap-1.5 bg-retro-brown text-white font-chunky text-[11px] sm:text-xs px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-pop-sm hover:bg-burnt-orange hover:text-white transition-all transform active:translate-x-0.5 active:translate-y-0.5" 
-              href="tel:+916376302275"
+              href="tel:+971503788009"
             >
               <span>CALL 24/7</span>
             </a>
             
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Menu Toggle Button with Smooth Hamburger-to-Cross Morph */}
             <button 
-              aria-label="Toggle navigation menu"
-              className="md:hidden p-1.5 sm:p-2 bg-cream-soft rounded-xl retro-border hover:bg-cheddar-yellow transition-colors"
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isMobileMenuOpen}
+              className="md:hidden w-9 h-9 sm:w-10 sm:h-10 p-1.5 sm:p-2 bg-cream-soft rounded-xl retro-border hover:bg-cheddar-yellow transition-colors flex items-center justify-center cursor-pointer shadow-pop-sm"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <svg className="w-6 h-6 text-retro-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path>
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
-                )}
-              </svg>
+              <div className="w-5 h-4 flex flex-col justify-between items-center relative">
+                {/* Top Bar -> Rotates 45deg & translates down */}
+                <span 
+                  className={`w-full h-0.5 bg-retro-brown rounded-full transform transition-all duration-300 ease-in-out origin-center ${
+                    isMobileMenuOpen ? 'translate-y-[7px] rotate-45' : 'translate-y-0 rotate-0'
+                  }`}
+                />
+                {/* Middle Bar -> Scales to 0 & fades */}
+                <span 
+                  className={`w-full h-0.5 bg-retro-brown rounded-full transition-all duration-200 ease-in-out ${
+                    isMobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'
+                  }`}
+                />
+                {/* Bottom Bar -> Rotates -45deg & translates up */}
+                <span 
+                  className={`w-full h-0.5 bg-retro-brown rounded-full transform transition-all duration-300 ease-in-out origin-center ${
+                    isMobileMenuOpen ? '-translate-y-[7px] -rotate-45' : 'translate-y-0 rotate-0'
+                  }`}
+                />
+              </div>
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pt-4 border-t-2 border-retro-brown/10">
-            <ul className="flex flex-col gap-3 font-bold text-base">
-              {/* Section Anchor Links */}
-              {sectionLinks.map((item) => {
-                const isActive = !isHotelPage && activeTab === item.name;
+        {/* Mobile Dropdown Menu with Smooth Accordion & Staggered Reveal */}
+        <div 
+          className={`grid md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            isMobileMenuOpen 
+              ? 'grid-rows-[1fr] opacity-100 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t-2 border-retro-brown/10' 
+              : 'grid-rows-[0fr] opacity-0 mt-0 pt-0 border-t-0 border-transparent pointer-events-none'
+          }`}
+        >
+          <div className="overflow-hidden">
+            <ul className="flex flex-col gap-2.5 font-bold text-base py-1">
+              {/* Section Anchor Links with Subtle Cascade */}
+              {sectionLinks.map((item, idx) => {
+                const isActive = activeTab === item.name;
                 return (
-                  <li key={item.name}>
+                  <li 
+                    key={item.name}
+                    className="transform transition-all duration-300 ease-out"
+                    style={{
+                      transitionDelay: isMobileMenuOpen ? `${idx * 40}ms` : '0ms',
+                      opacity: isMobileMenuOpen ? 1 : 0,
+                      transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-6px)'
+                    }}
+                  >
                     <a 
-                      className={`nav-wavy-link flex items-center justify-between transition-colors ${
+                      className={`nav-wavy-link flex items-center justify-between px-1 py-1.5 transition-colors ${
                         isActive 
                           ? 'active text-burnt-orange font-extrabold' 
                           : 'text-retro-brown hover:text-burnt-orange'
@@ -220,52 +224,39 @@ const Header = () => {
                       href={item.href}
                       onClick={(e) => handleNavClick(e, item)}
                     >
-                      <span>{item.name}</span>
+                      <span className="text-sm font-chunky">{item.name}</span>
+                      <span className="text-burnt-orange text-xs font-chunky opacity-75">→</span>
                     </a>
                   </li>
                 );
               })}
 
-              {/* Featured Hotel GVR Card in Mobile Drawer */}
-              <li className="py-1">
-                <Link
-                  to="/hotel"
-                  onClick={() => {
-                    setActiveTab('Hotel GVR');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`flex items-center justify-between p-3.5 rounded-2xl border-2 transition-all ${
-                    isHotelPage
-                      ? 'bg-brioche-deep text-parchment-subtle border-retro-brown shadow-pop-sm'
-                      : 'bg-cream-soft text-retro-brown border-retro-brown hover:bg-cheddar-yellow/30 shadow-pop-sm'
-                  }`}
+              <li 
+                className="pt-2 flex flex-col gap-2 transform transition-all duration-300 ease-out"
+                style={{
+                  transitionDelay: isMobileMenuOpen ? `${sectionLinks.length * 40}ms` : '0ms',
+                  opacity: isMobileMenuOpen ? 1 : 0,
+                  transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-6px)'
+                }}
+              >
+                <a 
+                  className="flex items-center justify-center gap-2 w-full bg-retro-brown text-white font-chunky text-xs uppercase px-4 py-2.5 rounded-xl retro-border shadow-pop-sm hover:bg-burnt-orange transition-colors cursor-pointer" 
+                  href="tel:+971503788009"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">🏨</span>
-                    <div className="flex flex-col text-left">
-                      <span className="font-chunky text-sm uppercase leading-tight">Hotel GVR</span>
-                      <span className={`text-[10px] font-bold ${isHotelPage ? 'text-cheddar-amber' : 'text-zinc-500'}`}>
-                        Boutique AC Rooms from ₹2,000 · Separate Page
-                      </span>
-                    </div>
-                  </div>
-                  <span className="bg-sun-gold text-retro-brown text-[10px] font-chunky px-2 py-1 rounded-lg retro-border">
-                    AC STAY
-                  </span>
-                </Link>
-              </li>
-
-              <li className="pt-2 flex flex-col gap-2">
-                <a className="flex items-center justify-center gap-2 w-full bg-retro-brown text-white font-chunky text-sm px-4 py-3 rounded-xl retro-border shadow-pop-sm hover:bg-burnt-orange transition-colors" href="tel:+916376302275">
-                  <span>CALL: +91 6376302275</span>
+                  <span>📞 CALL: +971 50 378 8009</span>
                 </a>
-                <a className="flex items-center justify-center gap-2 w-full bg-cream-soft text-retro-brown font-chunky text-xs px-4 py-2 rounded-xl retro-border hover:bg-cheddar-yellow transition-colors" href="tel:+917014639336">
-                  <span>ALT: +91 7014639336</span>
+                <a 
+                  className="flex items-center justify-center gap-2 w-full bg-cream-soft text-retro-brown font-chunky text-xs uppercase px-4 py-2 rounded-xl retro-border hover:bg-cheddar-yellow transition-colors cursor-pointer" 
+                  href="https://wa.me/971503788009?text=Hello%20Otto%20Pizzeria!" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <span>💬 WHATSAPP: +971 50 378 8009</span>
                 </a>
               </li>
             </ul>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );

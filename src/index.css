@@ -13,7 +13,6 @@
   html {
     margin: 0;
     padding: 0;
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;
   }
@@ -60,6 +59,27 @@
 }
 .animate-spin-slow {
   animation: spinSlow 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pulseFlame {
+  0%, 100% { transform: scale(1) rotate(-2deg); filter: drop-shadow(0 0 4px #D9531E); }
+  50% { transform: scale(1.12) rotate(2deg); filter: drop-shadow(0 0 10px #FFB703); }
+}
+.animate-pulse-flame {
+  animation: pulseFlame 2s ease-in-out infinite;
 }
 
 @keyframes waveFlow {
@@ -135,12 +155,35 @@ html.lenis, html.lenis body {
 }
 
 /* ===================================================
+   Scroll Progress Indicator Bar
+   =================================================== */
+#scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 100;
+  pointer-events: none;
+  background: transparent;
+}
+
+#scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #D9531E 0%, #FFB703 50%, #FB8500 100%);
+  box-shadow: 0 1px 6px rgba(217, 83, 30, 0.4);
+  transition: width 0.08s ease-out;
+  transform-origin: left center;
+}
+
+/* ===================================================
    Premium Scroll-Driven Reveal Animations
    =================================================== */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(36px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -151,8 +194,8 @@ html.lenis, html.lenis body {
 
 .reveal-left {
   opacity: 0;
-  transform: translateX(-35px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -163,8 +206,8 @@ html.lenis, html.lenis body {
 
 .reveal-right {
   opacity: 0;
-  transform: translateX(35px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -175,8 +218,8 @@ html.lenis, html.lenis body {
 
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.93) translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.92) translateY(24px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -187,8 +230,8 @@ html.lenis, html.lenis body {
 
 .reveal-pop {
   opacity: 0;
-  transform: scale(0.88) translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.86) translateY(26px);
+  transition: opacity 0.75s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: opacity, transform;
 }
 
@@ -197,7 +240,10 @@ html.lenis, html.lenis body {
   transform: scale(1) translateY(0px);
 }
 
-/* Stagger Delays */
+/* Stagger Delays for Cascade Entrances */
+.delay-75 {
+  transition-delay: 75ms;
+}
 .delay-100 {
   transition-delay: 100ms;
 }
@@ -213,6 +259,9 @@ html.lenis, html.lenis body {
 .delay-300 {
   transition-delay: 300ms;
 }
+.delay-350 {
+  transition-delay: 350ms;
+}
 .delay-400 {
   transition-delay: 400ms;
 }
@@ -224,10 +273,23 @@ html.lenis, html.lenis body {
 @media (max-width: 640px) {
   .reveal-left,
   .reveal-right {
-    transform: translateY(18px) !important;
+    transform: translateY(20px) !important;
   }
   .reveal-left.revealed,
   .reveal-right.revealed {
     transform: translateY(0px) !important;
   }
+}
+
+/* Headless Screenshot & Print Instant-Render Overrides */
+.headless-mode .reveal-on-scroll,
+.headless-mode .reveal-left,
+.headless-mode .reveal-right,
+.headless-mode .reveal-scale,
+.headless-mode .reveal-pop,
+.headless-mode [class*="delay-"] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  transition-delay: 0s !important;
 }
