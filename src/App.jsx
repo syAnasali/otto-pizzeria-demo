@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import Home from './pages/Home';
+import SplashLoader from './components/SplashLoader';
 
 function ScrollManager() {
   const location = useLocation();
@@ -120,6 +121,7 @@ function ScrollManager() {
 function App() {
   return (
     <Router>
+      <SplashLoader />
       <div id="scroll-progress-container" aria-hidden="true">
         <div id="scroll-progress-bar"></div>
       </div>

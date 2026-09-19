@@ -44,6 +44,11 @@ Welcome to the **Otto Pizzeria** repository! This is a modern, high-performance 
 - **Continuous Pizza Craft Ticker**: Infinite marquee highlighting 48-hr fermentation, 450°C stone hearth, and Nad Al Sheba location tags.
 - **Social Connection Hub**: Tactile interactive pills for **Instagram** (`@ottopizzeria`), **TikTok** (`@ottopizzeria`), **WhatsApp** (`+971 50 378 8009`), and **Google Maps**.
 
+### 7. 🎬 Reload Splash Screen & Card Slide-Out Animation
+- **Artisanal Neapolitan Pizza Centerpiece**: Stone hearth ember glow aura, rotating dashed orbit, steaming aroma wisps, bubbly charred crust, molten Fior di Latte mozzarella, pepperoni slices, basil, and a bouncing `🔥 450°C` badge.
+- **Interactive Loading Progress**: Live craft phases (*Heating 450°C Hearth...* → *Stretching 48H Sourdough...* → *Fired & Ready! 🍕*) with retro progress bar and percentage counter.
+- **Physical Card-Upward Exit**: Smoothly sweeps upwards (`-translate-y-full` with cubic-bezier easing) like a giant artisan pizza box lid lifting off, featuring rounded bottom corners (`rounded-b-[56px]`), retro borders, and depth shadows.
+
 ---
 
 ## 🛠️ Technology Stack
